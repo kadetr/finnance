@@ -24,9 +24,24 @@ backend developped with node, express, postgres, typescript.
 
 ## 2. Installation/Configuration
 
-node 18 - npm 10 should be installed on the system. [nvm](https://github.com/nvm-sh/nvm) can be used to manage node versions.
+node 18 - npm 10 should be installed on the system. [nvm](https://github.com/nvm-sh/nvm) can be used to manage node versions. docker daemon&cli should be installed and running. [docker desktop](https://www.docker.com/products/docker-desktop/) also runs daemon.
 
-### 2.1 Frontend
+### 2.1 Shell Script (config.sh)
+
+```bash
+git clone https://github.com/kadetr/finnance.git && cd finnance
+```
+
+run the `config.sh` script to handle dependencies
+
+```shell
+chmod +x config.sh
+./config.sh
+```
+
+### 2.2 Manual Setup
+
+#### a. Frontend
 
 - installing dependencies
 
@@ -49,7 +64,7 @@ $ npm start
 
 access localhost:3000 via browser
 
-### 2.2 Backend
+#### b. Backend
 
 - installing dependencies
 
