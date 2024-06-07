@@ -37,5 +37,4 @@ echo_success "Done setting up frontend."
 echo_success "Project is ready."
 echo_success "1. Get a Finnhub API key"
 echo_success "2. Set FINNHUB_API_KEY in 'backend/.env.example' file"
-echo_success "3. Change '.env.example' to '.env' in backend&frontend"
 

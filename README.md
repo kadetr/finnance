@@ -32,6 +32,8 @@ node 18 - npm 10 should be installed on the system. [nvm](https://github.com/nvm
 git clone https://github.com/kadetr/finnance.git && cd finnance
 ```
 
+change '.env.example' to '.env' in backend&frontend
+
 run the `config.sh` script to handle dependencies
 
 ```shell
