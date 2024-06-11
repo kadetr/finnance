@@ -1,12 +1,13 @@
 export interface CandlestickData {
-  id?: string
-  open: number
-  high: number
-  low: number
-  close: number
-  volume?: number
-  startTime?: Date
-  endTime?: Date
+  id?: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  type: string;
+  volume?: number;
+  startTime?: Date;
+  endTime?: Date;
 }
 
 export interface CandlestickObject {

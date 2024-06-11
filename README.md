@@ -165,3 +165,7 @@ Besides items mentioned in previous section, following to be implemented as a fu
 - concepts like load balancing, caching, indexing, batch process to be implemented for non-functional requirements like performance, availability, scalability (based on requirements).
 
 - bonus tasks were not clear to author. more input needed in order to complete the tasks.
+
+## After Submission
+
+- frontend, backend, db containerized

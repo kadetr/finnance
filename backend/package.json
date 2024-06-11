@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start:dev": "ts-node src/server.ts"
+    "start:dev": "ts-node src/server.ts",
+    "migrate": "prisma migrate dev",
+    "generate": "prisma generate"
   },
   "keywords": [
     "finnhub",

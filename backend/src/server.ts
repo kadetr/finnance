@@ -48,7 +48,11 @@ finnhubWSSubscriber;
 userWSServer;
 
 cron.schedule("* * * * *", () => {
-  aggregateCandlesticks().catch(console.error);
+  aggregateCandlesticks("minute").catch(console.error);
+});
+
+cron.schedule("0 * * * *", () => {
+  aggregateCandlesticks("hour").catch(console.error);
 });
 
 const PORT = process.env.PORT;

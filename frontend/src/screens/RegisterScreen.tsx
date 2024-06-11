@@ -6,6 +6,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { RegisterInputs } from '../types/form';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import RegisterForm from '../components/auth/Register';
+import { User } from '../types/user';
 
 const RegisterScreen = () => {
   const dispatch = useAppDispatch();
@@ -20,9 +21,8 @@ const RegisterScreen = () => {
     }
   }, [navigate, userInfo]);
 
-  const submitHandler: SubmitHandler<RegisterInputs> = (newUser) => {
-    const { email, password } = newUser;
-    dispatch(signup({ email, password }));
+  const submitHandler: SubmitHandler<RegisterInputs> = (newUser: User) => {
+    dispatch(signup(newUser));
     navigate('/');
   };
   return <RegisterForm submitHandler={submitHandler} />;

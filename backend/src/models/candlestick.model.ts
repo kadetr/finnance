@@ -6,14 +6,16 @@ export interface CandlestickData {
   high: number;
   low: number;
   close: number;
+  type?: string;
   volume?: number;
   startTime: Date;
   endTime?: Date;
 }
 
 export interface CandlestickInput {
-  symbol: string
-  startTime: Date
-  endTime: Date
-  userInfo?: UserProfile
+  symbol: string;
+  type: string;
+  startTime: Date;
+  endTime: Date;
+  userInfo?: UserProfile;
 }

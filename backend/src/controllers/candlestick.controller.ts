@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { getCandlesticksData } from "../services/candlestick.service";
 import { protect } from "../utils/token.util";
+import { getCandlesticksData } from "../services/candlestick.service";
 
 const router = Router();
 
@@ -10,17 +10,18 @@ const router = Router();
  * @returns candlestickData[]
  */
 router.get(
-  "/api/candlesticks/symbol/:symbol/startTime/:startTime/endTime/:endTime",
+  "/api/candlesticks/type/:type/symbol/:symbol/startTime/:startTime/endTime/:endTime",
   protect,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { symbol, startTime, endTime } = req.params;
+      const { symbol, startTime, endTime, type } = req.params;
       const st = new Date(startTime);
       const et = new Date(endTime);
       const candlestick = await getCandlesticksData({
         symbol,
         startTime: st,
         endTime: et,
+        type,
       });
       res.json({ candlestick });
     } catch (error) {

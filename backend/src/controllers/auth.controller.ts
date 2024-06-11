@@ -12,8 +12,9 @@ const router = Router();
 router.post(
   "/users/register",
   async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body;
     try {
-      const user = await createUser(req.body);
+      const user = await createUser({ email, password });
       res.json({ user });
     } catch (error) {
       next(error);

@@ -73,7 +73,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           type='password'
           label='re-enter password'
           value={password2}
-          {...register('password', {
+          {...register('password2', {
             required: true,
             validate: (val: string) => {
               if (watch('password') !== val) {

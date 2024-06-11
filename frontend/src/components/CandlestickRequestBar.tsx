@@ -28,6 +28,7 @@ const CandlestickRequestBar: React.FC<CandlestickRequestBarProps> = ({
   const serverStartTime = dayjs('2024-03-15T00:00');
 
   const [symbol, setSymbol] = useState<string>('');
+  const [type, setType] = useState<string>('minute');
   const [startTime, setStartTime] = useState<Dayjs | null>(
     dayjs(new Date().setHours(new Date().getHours() - 1))
   );
@@ -44,7 +45,7 @@ const CandlestickRequestBar: React.FC<CandlestickRequestBarProps> = ({
     if (startTime && endTime) {
       const st = dayjs(startTime).toDate();
       const et = dayjs(endTime).toDate();
-      submitHandler({ symbol, startTime: st, endTime: et });
+      submitHandler({ symbol, startTime: st, endTime: et, type });
     }
   }, [symbol, startTime, endTime, submitHandler]);
 
@@ -82,10 +83,35 @@ const CandlestickRequestBar: React.FC<CandlestickRequestBarProps> = ({
             </Typography>
           )}
         </FormControl>
+        <FormControl sx={{ width: '10%', pt: 1 }}>
+          <TextField
+            select
+            value={type}
+            label='Symbol'
+            {...register('typeselect', { required: true })}
+            onChange={(e) => {
+              setType(e.target.value);
+              setError('typeselect', { type: 'custom', message: '' });
+              symbolUpdate();
+            }}
+          >
+            <MenuItem key={0} value='minute'>
+              minute
+            </MenuItem>
+            <MenuItem key={1} value='hour'>
+              hour
+            </MenuItem>
+          </TextField>
+          {errors.symbolselect?.type === 'required' && (
+            <Typography sx={{ color: 'red', fontSize: '12px' }} pl={2}>
+              type required
+            </Typography>
+          )}
+        </FormControl>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer
             components={['DateTimePicker']}
-            sx={{ width: '40%', pt: 1, height: 60 }}
+            sx={{ width: '30%', pt: 1, height: 60 }}
           >
             <DateTimePicker
               label='Start Datetime'
@@ -98,7 +124,7 @@ const CandlestickRequestBar: React.FC<CandlestickRequestBarProps> = ({
           </DemoContainer>
           <DemoContainer
             components={['DateTimePicker']}
-            sx={{ width: '40%', pt: 1, height: 60 }}
+            sx={{ width: '30%', pt: 1, height: 60 }}
           >
             <DateTimePicker
               label='End Datetime'
