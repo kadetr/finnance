@@ -169,3 +169,6 @@ Besides items mentioned in previous section, following to be implemented as a fu
 ## After Submission
 
 - frontend, backend, db containerized
+- candlestick open, close, low, high values fixed for chart library [react-google-charts](https://www.react-google-charts.com/).
+- minute/hour select box added for candlestick charts.
+- some minor changes.
