@@ -35,6 +35,7 @@ model Candlestick {
   high      Float
   low       Float
   close     Float
+  type      String?
   volume    Int?
   startTime DateTime  @map("start_time")
   endTime   DateTime? @map("end_time")

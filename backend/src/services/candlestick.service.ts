@@ -1,12 +1,21 @@
-import { CandlestickData, CandlestickInput } from "../models/candlestick.model";
 import prisma from "../../prisma/prisma-client";
-import { Trade } from "@prisma/client";
+import { CandlestickData, CandlestickInput } from "../models/candlestick.model";
+import { Trade } from "../models/trade.model";
 
-export const aggregateCandlesticks = async () => {
-  const now = new Date(new Date().setSeconds(0, 0));
-  const oneTimeAgo = new Date(
-    new Date(now.getTime() - 60 * 1000).setSeconds(0, 0),
-  );
+export const aggregateCandlesticks = async (duration: string) => {
+  let now = new Date();
+  let oneTimeAgo = now;
+
+  if (duration === "minute") {
+    now = new Date(new Date().setSeconds(0, 0));
+    oneTimeAgo = new Date(new Date(now.getTime() - 60 * 1000).setSeconds(0, 0));
+  }
+  if (duration === "hour") {
+    now = new Date(new Date().setMinutes(0, 0, 0));
+    oneTimeAgo = new Date(
+      new Date(now.getTime() - 60 * 60 * 1000).setMinutes(0, 0, 0),
+    );
+  }
 
   const lastCS = await prisma.candlestick.findFirst({
     where: {
@@ -66,6 +75,7 @@ export const aggregateCandlesticks = async () => {
           high,
           low,
           close,
+          type: duration,
           volume,
           startTime: oneTimeAgo,
           endTime: now,
@@ -81,6 +91,7 @@ export const getCandlesticksData = async (
   const csData = await prisma.candlestick.findMany({
     where: {
       symbol: candlestick.symbol,
+      type: candlestick.type,
       startTime: { gte: candlestick.startTime, lt: candlestick.endTime },
     },
     select: {

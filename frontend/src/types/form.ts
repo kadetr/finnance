@@ -11,6 +11,7 @@ export interface LoginInputs {
 
 export interface CandlestickInputs {
   symbol: string;
+  type: string;
   startTime: Date;
   endTime: Date;
   token?: string;

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: c0nd0
+      POSTGRES_PASSWORD: p4ssw0rd
+      POSTGRES_DB: finnanceDB
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'c0nd0', '-d', 'finnanceDB']
+      interval: 5s
+      timeout: 2s
+      retries: 20
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://c0nd0:p4ssw0rd@postgres:5432/finnanceDB?schema=public
+    
+    volumes:
+      - ./backend:/app
+
+    ports:
+      - "8008:8008"
+      - "8080:8080"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:

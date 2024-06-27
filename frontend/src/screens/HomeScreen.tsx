@@ -20,7 +20,7 @@ const HomeScreen = () => {
   const { userInfo } = useAppSelector((state) => state.user);
 
   const [csData, setcsData] = useState<Array<number | Date | string>[]>([
-    ['time', 'o', 'h', 'l', 'c'],
+    ['time', 'low', 'open', 'close', 'high'],
   ]);
   const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
@@ -35,20 +35,22 @@ const HomeScreen = () => {
   };
 
   const submitHandler = (candlestickInputs: CandlestickInputs) => {
-    const { symbol, startTime, endTime } = candlestickInputs;
+    const { symbol, startTime, endTime, type } = candlestickInputs;
     let s = symbol;
     const st = new Date(dayjs(startTime).toDate().setSeconds(0));
     const et = new Date(dayjs(endTime).toDate().setSeconds(0));
     if (symbol === 'BINANCE') s = 'BINANCE:BTCUSDT';
     userInfo &&
-      dispatch(getCandlestickData({ symbol: s, startTime: st, endTime: et }))
+      dispatch(
+        getCandlestickData({ symbol: s, startTime: st, endTime: et, type })
+      )
         .then((data) => {
           const csArray: CandlestickData[] = data.payload.candlestick;
-          let chartData: any[] = [['time', 'o', 'h', 'l', 'c']];
+          let chartData: any[] = [['time', 'low', 'open', 'close', 'high']];
 
           csArray.forEach((x: CandlestickData) => {
             let d = x.startTime?.toString().split('T')[1].slice(0, 5);
-            chartData.push([d, x.open, x.high, x.low, x.close]);
+            chartData.push([d, x.low, x.open, x.close, x.high]);
           });
           setcsData(chartData);
           setDataLoaded(true);

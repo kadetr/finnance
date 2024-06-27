@@ -25,7 +25,7 @@ let u: UserData;
 export const getCandlestickData = createAsyncThunk(
   '/candlestick/get',
   async (inputs: CandlestickInputs, { rejectWithValue }) => {
-    const { symbol, startTime, endTime } = inputs;
+    const { symbol, startTime, endTime, type } = inputs;
     const userInfo = localStorage.getItem('userInfo');
 
     if (userInfo) u = JSON.parse(userInfo).user;
@@ -39,10 +39,11 @@ export const getCandlestickData = createAsyncThunk(
           symbol,
           startTime,
           endTime,
+          type,
         },
       };
       const { data } = await axios.get(
-        `${baseURL}/api/candlesticks/symbol/${symbol}/startTime/${startTime}/endTime/${endTime}`,
+        `${baseURL}/api/candlesticks/type/${type}/symbol/${symbol}/startTime/${startTime}/endTime/${endTime}`,
         config
       );
       return data;
